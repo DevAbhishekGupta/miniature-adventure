@@ -1,0 +1,276 @@
+<mat-toolbar style="height: 40px; position: fixed;">
+    <div class="col-auto">
+        <button type="submit" mat-raised-button color="primary" style="text-align: right;" (click)="ngAddMember();">Register Member</button>
+        <button type="submit" mat-raised-button color="accent" style="text-align: right;" (click)="ngFindMember();">Search Member</button>
+    </div>
+    <div class="col-auto">
+        <button mat-raised-button color="warn" (click)="logout();">Logout</button>
+    </div>
+</mat-toolbar>
+
+<!-- Member Registration Section Started -->
+<div class="container" *ngIf='addMember'>
+    <div style="height: 90px;" ></div>
+
+    <div class="container col-md-6 divcard">
+        <mat-card>
+            <mat-card-title  class="member-card-title" style="text-align: center;">
+                <h2>Member Registration</h2>
+            </mat-card-title>
+          <mat-card-content>
+            <form #memberForm="ngForm" (ngSubmit)="registerMember()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>First Name</mat-label>
+                            <input matInput type="text" placeholder="First Name" name="firstName" [(ngModel)]="member.firstName" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput type="text" placeholder="Last Name" name="lastName" [(ngModel)]="member.lastName" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Username</mat-label>
+                            <input matInput type="text" placeholder="Username" name="userName" [(ngModel)]="member.userName" required>
+                            </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" placeholder="Password" name="passWord" [(ngModel)]="member.passWord" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <input matInput type="text" placeholder="Address" name="address" [(ngModel)]="member.address" required>
+                  </mat-form-field>
+                
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>State</mat-label>
+                            <input matInput type="text" placeholder="State" name="state" [(ngModel)]="member.state" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>City</mat-label>
+                            <input matInput type="text" placeholder="City" name="city" [(ngModel)]="member.city" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="text" placeholder="Email" name="email" [(ngModel)]="member.email" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <input matInput placeholder="Date of Birth" [matDatepicker]="picker1"
+                            name="dob" id="dob" required (click)="picker1.open()" [(ngModel)]="member.dob">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            
+                <button mat-raised-button color="primary">Register</button>
+                <button mat-raised-button color="warn" (click)="cancel();">Cancel</button>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      
+    </div>
+</div>
+<!-- Member Registration Section Ended -->
+
+<!-- Member Search Section Started -->
+<div class="container" *ngIf='findMember'>
+    <div style="height: 90px;" ></div>
+
+    <div class="container col-md-6 divcard">
+        <mat-card>
+            <mat-card-title  class="member-card-title" style="text-align: center;">
+                <h2>Search Member</h2>
+            </mat-card-title>
+            <mat-card-content>
+                <mat-card-content>
+                    <form #findMemberForm="ngForm" (ngSubmit)="memberSearch()">
+                        <div class="col-md-6">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>Member ID</mat-label>
+                                <input matInput type="text" placeholder="Member Id" name="memberId" [(ngModel)]="searchMember.memberId">
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>First Name</mat-label>
+                                    <input matInput type="text" placeholder="First Name" name="firstName" [(ngModel)]="searchMember.firstName">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Last Name</mat-label>
+                                    <input matInput type="text" placeholder="Last Name" name="lastName" [(ngModel)]="searchMember.lastName">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>Claim ID</mat-label>
+                                <input matInput type="text" placeholder="Claim Id" name="claimid" [(ngModel)]="claimid">
+                            </mat-form-field>
+                        </div>
+
+                        <mat-form-field class="example-full-width" appearance="outline">
+                            <mat-label>Physician</mat-label>
+                            <mat-select [(value)]="searchPhysician">
+                              <mat-option >None</mat-option>
+                              <mat-option value="1">John</mat-option>
+                              <mat-option value="2">Hari</mat-option>
+                              <mat-option value="3">Mittal</mat-option>
+                              <mat-option value="4">Patrick</mat-option>
+                              <mat-option value="5">Mark</mat-option>
+                              <mat-option value="6">Jessica</mat-option>
+                              <mat-option value="7">Mary</mat-option>
+                              <mat-option value="8">Stacy</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    
+                        <button mat-raised-button color="primary">Search</button>
+                        <button mat-raised-button color="warn" (click)="cancel();">Cancel</button>
+                    </form>
+                  </mat-card-content>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<!-- Member Search Section Ended -->
+
+<!-- Member Search Result Table Section Started -->
+<div class="container" *ngIf='searchMemberTable'>
+    <div style="height: 40px;" ></div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+
+    <ng-container matColumnDef="memberId">
+      <th  class="col-sm-1" mat-header-cell *matHeaderCellDef mat-sort-header>Member ID</th>
+      <td  class="col-sm-1" mat-cell *matCellDef="let m">{{m.memberId}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <th class="col-sm-1" mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+      <td class="col-sm-1" mat-cell *matCellDef="let m">{{m.firstName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th class="col-sm-1" mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+      <td class="col-sm-1" mat-cell *matCellDef="let m">{{m.lastName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="physician">
+        <th  class="col-sm-1" mat-header-cell *matHeaderCellDef mat-sort-header>Physician</th>
+        <td  class="col-sm-1" mat-cell *matCellDef="let m">{{m.physician}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="claimId">
+        <th class="col-sm-1" mat-header-cell *matHeaderCellDef mat-sort-header>Claim Id</th>
+        <td class="col-sm-1" mat-cell *matCellDef="let m">{{m.claimId}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="claimAmount">
+        <th class="col-sm-1" mat-header-cell *matHeaderCellDef mat-sort-header>Claim Amount</th>
+        <td class="col-sm-1" mat-cell *matCellDef="let m">{{m.claimAmount}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="submittedDate">
+        <th class="col-sm-1" mat-header-cell *matHeaderCellDef mat-sort-header>Submitted Date</th>
+        <td class="col-sm-1" mat-cell *matCellDef="let m">{{m.submittedDate}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="submitClaim">
+        <th class="col-sm-1" mat-header-cell  *matHeaderCellDef >Submit Claim</th>
+        <td mat-cell *matCellDef="let m" class="col-sm-1"><button mat-raised-button color="primary" (click)="claimForm(m)" >Claim</button></td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons 
+                 aria-label="Select page of Member List">
+  </mat-paginator>
+</div>
+<!-- Member Search Result Table Section Ended -->
+
+<!-- Member Add Claim Section Started -->
+<div class="container"  *ngIf='addClaimForm'>
+    <div style="height: 90px;" ></div>
+
+    <div class="container col-md-4 divcard">
+        <mat-card>
+            <mat-card-title  class="member-card-title" style="text-align: center;">
+                <h2>Claim Submission</h2>
+            </mat-card-title>
+                <mat-card-content>
+                    <mat-card-title style="text-align: center;">
+                        <h4><b>MEMBER ID: {{searchMember.memberId}}</b></h4>
+                    </mat-card-title>
+                    <form #findMemberForm="ngForm" (ngSubmit)="claimSubmit()">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Claim Type</mat-label>
+                                    <mat-select [(value)]="claimTypeSelected" required>
+                                      <mat-option value="Vision">Vision</mat-option>
+                                      <mat-option value="Dental">Dental</mat-option>
+                                      <mat-option value="Medical">Medical</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>Claim Amount</mat-label>
+                                <input matInput type="number" placeholder="Claim Amount" name="claimAmout" [(ngModel)]="claim.claimAmount" required>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-12">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <input matInput placeholder="Claim Date" [matDatepicker]="picker1"
+                                name="claimDate" id="claimDate" required (click)="picker1.open()"  [(ngModel)]="claim.claimDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-12">
+                            <mat-form-field class="example-full-width" appearance="outline">
+                                <mat-label>Remarks</mat-label>
+                                <input matInput type="text" placeholder="Remarks" name="remarks" [(ngModel)]="claim.remarks" required>
+                            </mat-form-field>
+                        </div>
+                    
+                        <button mat-raised-button color="primary">Submit Claim</button>
+                        <button mat-raised-button color="warn" (click)="cancel();">Cancel</button>
+                    </form>
+                  </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<!-- Member Add Claim Section Ended -->
