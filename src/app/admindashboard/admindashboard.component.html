@@ -1,7 +1,7 @@
 <mat-toolbar style="height: 40px; position: fixed;">
     <div class="col-auto">
-        <button type="submit" mat-raised-button color="primary" style="text-align: right;" (click)="ngAddMember();">Register Member</button>
-        <button type="submit" mat-raised-button color="accent" style="text-align: right;" (click)="ngFindMember();">Search Member</button>
+        <button type="submit" mat-raised-button color="primary" style="text-align: right;" (click)="ngAddMember();">Register Member</button>&nbsp;
+        <button type="submit" mat-raised-button color="accent" style="text-align: right;" (click)="ngFindMember();">Search Member</button>&nbsp;&nbsp;
     </div>
     <div class="col-auto">
         <button mat-raised-button color="warn" (click)="logout();">Logout</button>
@@ -18,18 +18,24 @@
                 <h2>Member Registration</h2>
             </mat-card-title>
           <mat-card-content>
-            <form #memberForm="ngForm" (ngSubmit)="registerMember()">
+            <form [formGroup]="memberForm" (ngSubmit)="registerMember()">
                 <div class="row">
                     <div class="col-md-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>First Name</mat-label>
-                            <input matInput type="text" placeholder="First Name" name="firstName" [(ngModel)]="member.firstName" required>
+                            <input matInput type="text" placeholder="First Name" formControlName="firstName" [(ngModel)]="member.firstName">
+                            <mat-error *ngIf="myError('firstName', 'required')">First Name is required.</mat-error>
+                            <mat-error *ngIf="myError('firstName', 'minlength')">Should be Minimum 5 Characters</mat-error>
+                            <mat-error *ngIf="myError('firstName', 'maxlength')">Should be Maximum 20 Characters</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-md-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Last Name</mat-label>
-                            <input matInput type="text" placeholder="Last Name" name="lastName" [(ngModel)]="member.lastName" required>
+                            <input matInput type="text" placeholder="Last Name" formControlName="lastName" [(ngModel)]="member.lastName">
+                            <mat-error *ngIf="myError('lastName', 'required')">Last Name is required.</mat-error>
+                            <mat-error *ngIf="myError('lastName', 'minlength')">Should be Minimum 5 Characters</mat-error>
+                            <mat-error *ngIf="myError('lastName', 'maxlength')">Should be Maximum 20 Characters</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -38,21 +44,31 @@
                     <div class="col-md-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Username</mat-label>
-                            <input matInput type="text" placeholder="Username" name="userName" [(ngModel)]="member.userName" required>
+                            <input matInput type="text" placeholder="Username" formControlName="userName" [(ngModel)]="member.userName" >
+                            <mat-error *ngIf="myError('userName', 'required')">Username is required.</mat-error>
+                            <mat-error *ngIf="myError('userName', 'isUserExist')">Try another. Username is present.</mat-error>
                             </mat-form-field>
                     </div>
                     <div class="col-md-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Password</mat-label>
-                            <input matInput type="password" placeholder="Password" name="passWord" [(ngModel)]="member.passWord" required>
+                            <input matInput type="password" placeholder="Password" formControlName="passWord" [(ngModel)]="member.passWord" >
+                            <mat-hint>Must be alphanumeric and have special character. Min 8 and Max 15 characters.</mat-hint>
+                            <mat-error *ngIf="myError('passWord', 'required')">Password is required.</mat-error>
+                            <mat-error *ngIf="myError('passWord', 'minlength')">Should be Minimum 8 Characters.</mat-error>
+                            <mat-error *ngIf="myError('passWord', 'maxlength')">Should be Maximum 15 Characters.</mat-error>
+                            <mat-error *ngIf="myError('passWord', 'pattern')">Must have One Upper and Lower Case, One number, One Special Character.</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 
-
+                <div style="height: 5px;"></div>
                 <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Address</mat-label>
-                    <input matInput type="text" placeholder="Address" name="address" [(ngModel)]="member.address" required>
+                    <input matInput type="text" placeholder="Address" formControlName="address" [(ngModel)]="member.address" >
+                    <mat-error *ngIf="myError('address', 'required')">Address is required.</mat-error>
+                    <mat-error *ngIf="myError('address', 'minlength')">Should be Minimum 10 Characters.</mat-error>
+                    <mat-error *ngIf="myError('address', 'maxlength')">Should be Maximum 100 Characters.</mat-error>
                   </mat-form-field>
                 
 
@@ -60,13 +76,15 @@
                     <div class="col-md-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>State</mat-label>
-                            <input matInput type="text" placeholder="State" name="state" [(ngModel)]="member.state" required>
+                            <input matInput type="text" placeholder="State" formControlName="state" [(ngModel)]="member.state">
+                            <mat-error *ngIf="myError('state', 'required')">State is required.</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-md-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>City</mat-label>
-                            <input matInput type="text" placeholder="City" name="city" [(ngModel)]="member.city" required>
+                            <input matInput type="text" placeholder="City" formControlName="city" [(ngModel)]="member.city">
+                            <mat-error *ngIf="myError('city', 'required')">City is required.</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -75,22 +93,28 @@
                     <div class="col-md-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input matInput type="text" placeholder="Email" name="email" [(ngModel)]="member.email" required>
+                            <input matInput type="text" placeholder="Email" formControlName="email" [(ngModel)]="member.email" >
+                            <mat-error *ngIf="myError('email', 'required')">Email is required.</mat-error>
+                            <mat-error *ngIf="myError('email', 'email')">Invalid Email.</mat-error>
+                            <mat-error *ngIf="myError('email', 'isEmailExist')">Email already present.</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-md-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <input matInput placeholder="Date of Birth" [matDatepicker]="picker1"
-                            name="dob" id="dob" required (click)="picker1.open()" [(ngModel)]="member.dob">
+                            formControlName="dob" id="dob" required (click)="picker1.open()" [(ngModel)]="member.dob">
+                            <mat-error *ngIf="myError('dob', 'required')">Date of Birth is required.</mat-error>
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
                     </div>
                 </div>
             
-                <button mat-raised-button color="primary">Register</button>
-                <button mat-raised-button color="warn" (click)="cancel();">Cancel</button>
+                <button mat-raised-button color="primary">Register</button>&nbsp;
+                <button mat-raised-button color="warn" (click)="cancel();">Cancel</button>&nbsp;
+                <button type="button" mat-raised-button (click)="clearMemberForm();">Clear</button>
             </form>
+            
           </mat-card-content>
         </mat-card>
       
@@ -140,7 +164,7 @@
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Physician</mat-label>
                             <mat-select [(value)]="searchPhysician">
-                              <mat-option >None</mat-option>
+                              <mat-option value="0">None</mat-option>
                               <mat-option value="1">John</mat-option>
                               <mat-option value="2">Hari</mat-option>
                               <mat-option value="3">Mittal</mat-option>
@@ -152,7 +176,7 @@
                             </mat-select>
                           </mat-form-field>
                     
-                        <button mat-raised-button color="primary">Search</button>
+                        <button mat-raised-button color="primary">Search</button>&nbsp;
                         <button mat-raised-button color="warn" (click)="cancel();">Cancel</button>
                     </form>
                   </mat-card-content>
@@ -212,11 +236,25 @@
 
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+  <mat-paginator class="col-sm-11" [pageSizeOptions]="[5, 10, 20]"
                  showFirstLastButtons 
                  aria-label="Select page of Member List">
   </mat-paginator>
 </div>
+
+<!-- <div *ngIf="dataSource.length === 0">No data</div> -->
+
+<div class="container" *ngIf="noRecordFound">
+    <div style="height: 20px;" ></div>
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="alert alert-danger text-center">
+                <strong>No Record Found.</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Member Search Result Table Section Ended -->
 
 <!-- Member Add Claim Section Started -->
@@ -232,29 +270,34 @@
                     <mat-card-title style="text-align: center;">
                         <h4><b>MEMBER ID: {{searchMember.memberId}}</b></h4>
                     </mat-card-title>
-                    <form #findMemberForm="ngForm" (ngSubmit)="claimSubmit()">
+                    <!--<form #findMemberForm="ngForm" (ngSubmit)="claimSubmit()">-->
+                    <form [formGroup]="memberClaimForm" (ngSubmit)="claimSubmit()">
                         <div class="row">
                             <div class="col-md-12">
                                 <mat-form-field class="example-full-width" appearance="outline">
                                     <mat-label>Claim Type</mat-label>
-                                    <mat-select [(value)]="claimTypeSelected" required>
+                                    <mat-select [(value)]="claimTypeSelected" formControlName="claimType">
                                       <mat-option value="Vision">Vision</mat-option>
                                       <mat-option value="Dental">Dental</mat-option>
                                       <mat-option value="Medical">Medical</mat-option>
                                     </mat-select>
+                                    <mat-error *ngIf="myError('claimType', 'required')">Claim Type is required.</mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <mat-form-field class="example-full-width" appearance="outline">
                                 <mat-label>Claim Amount</mat-label>
-                                <input matInput type="number" placeholder="Claim Amount" name="claimAmout" [(ngModel)]="claim.claimAmount" required>
+                                <input matInput type="number" placeholder="Claim Amount" formControlName="claimAmount" [(ngModel)]="claim.claimAmount">
+                                <mat-error *ngIf="claimError('claimAmount', 'required')">Claim Amount is required.</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-md-12">
                             <mat-form-field class="example-full-width" appearance="outline">
                                 <input matInput placeholder="Claim Date" [matDatepicker]="picker1"
-                                name="claimDate" id="claimDate" required (click)="picker1.open()"  [(ngModel)]="claim.claimDate">
+                                formControlName="claimDate" (click)="picker1.open()"  [(ngModel)]="claim.claimDate">
+                                <mat-error *ngIf="claimError('claimDate', 'required')">Claim Amount is required.</mat-error>
+                                <mat-error *ngIf="claimError('claimDate', 'validateClaimDate')">Claim Date should be greater than current date.</mat-error>
                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
                             </mat-form-field>
@@ -262,12 +305,14 @@
                         <div class="col-md-12">
                             <mat-form-field class="example-full-width" appearance="outline">
                                 <mat-label>Remarks</mat-label>
-                                <input matInput type="text" placeholder="Remarks" name="remarks" [(ngModel)]="claim.remarks" required>
+                                <input matInput type="text" placeholder="Remarks" formControlName="remarks" [(ngModel)]="claim.remarks">
+                                <mat-error *ngIf="claimError('remarks', 'required')">Remarks should be less and equal to 1000 Characters.</mat-error>
                             </mat-form-field>
                         </div>
                     
-                        <button mat-raised-button color="primary">Submit Claim</button>
-                        <button mat-raised-button color="warn" (click)="cancel();">Cancel</button>
+                        <button mat-raised-button color="primary">Submit Claim</button>&nbsp;
+                        <button mat-raised-button color="warn" (click)="cancel();">Cancel</button>&nbsp;
+                        <button type="button" mat-raised-button (click)="clearClaimForm();">Clear</button>
                     </form>
                   </mat-card-content>
         </mat-card>

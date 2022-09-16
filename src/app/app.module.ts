@@ -35,6 +35,7 @@ import { RegisteruserComponent } from './registeruser/registeruser.component';
 import { AdmindashboardComponent } from './admindashboard/admindashboard.component';
 import { MemberdashboardComponent } from './memberdashboard/memberdashboard.component';
 import { AuthGuard } from './guards/auth.guard';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { AuthGuard } from './guards/auth.guard';
     MatToolbarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [AuthGuard,MatDatepickerModule,DatePipe],
   bootstrap: [AppComponent],

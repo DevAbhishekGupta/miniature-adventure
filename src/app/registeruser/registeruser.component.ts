@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../login/user';
+import { UserService } from '../service/user.service';
 import { RegisteruserService } from './registeruser.service';
 
 @Component({
@@ -12,15 +13,19 @@ import { RegisteruserService } from './registeruser.service';
 export class RegisteruserComponent implements OnInit {
 
   constructor(private registerUserService : RegisteruserService,
-    private router : Router) { }
+    private router : Router,
+    private userService : UserService) { }
 
   ngOnInit(): void {
 
     this.registerForm = new FormGroup({
-      username: new FormControl(this.user.username, [Validators.required]),
+      username: new FormControl(this.user.username, [Validators.required,
+        //isUserPresent(this.userService)
+      ]),
       password: new FormControl(this.user.password, [Validators.required, 
         Validators.minLength(8),Validators.maxLength(15),
-        Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$")])
+        Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$")]),
+      selectRole : new FormControl(this.roleSelected, [Validators.required])
     });
 
   }
@@ -50,4 +55,32 @@ export class RegisteruserComponent implements OnInit {
   }
 
 
+}
+
+function isEmptyInputValue(value: any): boolean {
+  return value == null ||
+      ((typeof value === 'string' || Array.isArray(value)) && value.length === 0);
+}
+
+
+function isUserPresent(userService : UserService) : ValidatorFn {
+  return (control: AbstractControl): ValidationErrors|null => {
+    if (isEmptyInputValue(control.value)) {
+      return null;
+    }
+
+    /*
+    let isUserExist : boolean | any; 
+    userService.isUserExist(control.value).subscribe(data => {
+      isUserExist = data;
+    });
+    */
+    let isUserExist : boolean | any = userService.isUserExist(control.value);
+
+  if(isUserExist){
+    return { 'isUserExist': 'Username is present.' }
+  }else{
+    return null;
+  }
+  };
 }

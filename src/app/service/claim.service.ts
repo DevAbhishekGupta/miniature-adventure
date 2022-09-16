@@ -11,9 +11,13 @@ export class ClaimService {
 
   constructor(private http : HttpClient) { }
 
-  private ADD_CLAIM : string = `http://localhost:8080/claim/api/addClaim`;
+  //private ADD_CLAIM : string = `http://localhost:8080/claim/api/addClaim`;
 
-  private MEMBERDETAILS_BYCLAIMID : string = `http://localhost:8080/claim/api/getMemberByClaimId`;
+  //private MEMBERDETAILS_BYCLAIMID : string = `http://localhost:8080/claim/api/getMemberByClaimId`;
+
+  private ADD_CLAIM : string = `http://ec2-54-68-150-84.us-west-2.compute.amazonaws.com:5000/claim/api/addClaim`;
+
+  private MEMBERDETAILS_BYCLAIMID : string = `http://ec2-54-68-150-84.us-west-2.compute.amazonaws.com:5000/claim/api/getMemberByClaimId`;
 
   claimSubmit(claim : Claim) : Observable<Claim>{
     return this.http.post<Claim>(this.ADD_CLAIM,claim,{headers : {"Authorization" : `Bearer ${localStorage.getItem('token')}`}});
