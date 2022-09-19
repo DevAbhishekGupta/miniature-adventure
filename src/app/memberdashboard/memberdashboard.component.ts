@@ -93,9 +93,15 @@ export class MemberdashboardComponent implements OnInit {
     this.member.dob = this.datePipe.transform(this.member.dob,'MM/dd/yyyy');
     this.memberService.updateMember(this.member).subscribe(data => {
       this.member = data;
-      alert("Member Details Updated Successfully.")
+      alert("Member Details Updated Successfully.");
+      Object.keys(this.updateMemberForm.controls).forEach(key => {
+        this.updateMemberForm.get(key).setErrors(null) ;
+      });
     }, error => {
-      console.log(error);      
+      console.log(error);  
+      Object.keys(this.updateMemberForm.controls).forEach(key => {
+        this.updateMemberForm.get(key).setErrors(null) ;
+      });    
     });
 
     this.member = new Member();
@@ -168,7 +174,7 @@ export class MemberdashboardComponent implements OnInit {
   }
 
   getMemberId(){
-    debugger;
+    //debugger;
     let userID : string | any  = localStorage.getItem('userid');
     let userid = parseInt(userID);
     console.log("getMemberId: " + this.setMemberId);

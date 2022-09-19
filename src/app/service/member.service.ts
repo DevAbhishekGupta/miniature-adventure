@@ -36,6 +36,7 @@ export class MemberService {
 
   //###############################################################################
 
+  /*
   private REGISTER_MEMBER : string = `http://ec2-54-68-150-84.us-west-2.compute.amazonaws.com:5000/mem/api/addMember`;
 
   private SEARCH_MEMBER_BYID : string = `http://ec2-54-68-150-84.us-west-2.compute.amazonaws.com:5000/mem/api/getMemberDetailsById`;
@@ -55,6 +56,32 @@ export class MemberService {
   private ISEMAILEXIST : string = `http://ec2-54-68-150-84.us-west-2.compute.amazonaws.com:5000/mem/api/isEmailExist`;
 
   private GETMEMBERID : string = `http://ec2-54-68-150-84.us-west-2.compute.amazonaws.com:5000/mem/api/getMemberId`;
+
+  */
+
+
+  //================================================================================
+
+  private REGISTER_MEMBER : string = `https://umxjd8fde7.execute-api.us-west-2.amazonaws.com/HCMP/registermember`;
+
+  private SEARCH_MEMBER_BYID : string = `https://umxjd8fde7.execute-api.us-west-2.amazonaws.com/HCMP/searchmemberbyid`;
+
+  private SEARCH_MEMBER_BYNAME : string = `http://ec2-54-68-150-84.us-west-2.compute.amazonaws.com:5000/mem/api/getMemberByName`;
+
+  private SEARCH_MEMBER_BY_PHYSICIAN : string = `https://umxjd8fde7.execute-api.us-west-2.amazonaws.com/HCMP/searchmemberbyphysician`;
+
+  private MEMBER_BYUSER_ID : string = `https://umxjd8fde7.execute-api.us-west-2.amazonaws.com/HCMP/memberbyuserid`;
+
+  private MEMBERDETAILS_BYCLAIMID : string = `https://umxjd8fde7.execute-api.us-west-2.amazonaws.com/HCMP/memberdetailsbyclaimid`;
+
+  private GETMEMBER_BYUSERID : string = `https://umxjd8fde7.execute-api.us-west-2.amazonaws.com/HCMP/getmemberbyuserid`;
+
+  private UPDATE_MEMBER : string = `https://umxjd8fde7.execute-api.us-west-2.amazonaws.com/HCMP/updatemember`;
+
+  private ISEMAILEXIST : string = `http://ec2-54-68-150-84.us-west-2.compute.amazonaws.com:5000/mem/api/isEmailExist`;
+
+  private GETMEMBERID : string = `https://umxjd8fde7.execute-api.us-west-2.amazonaws.com/HCMP/getmemberid`;
+  
 
   registerMember(member : Member) : Observable<Member>{
     return this.http.post<Member>(this.REGISTER_MEMBER,member);

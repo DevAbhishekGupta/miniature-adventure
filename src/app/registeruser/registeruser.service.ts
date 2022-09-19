@@ -12,7 +12,9 @@ export class RegisteruserService {
 
   //private REGISTER_USER : string = `http://localhost:8080/user/api/registerUser`;
 
-  private REGISTER_USER : string = `http://ec2-54-68-150-84.us-west-2.compute.amazonaws.com:5000/user/api/registerUser`;
+  //private REGISTER_USER : string = `http://ec2-54-68-150-84.us-west-2.compute.amazonaws.com:5000/user/api/registerUser`;
+
+  private REGISTER_USER : string = `https://umxjd8fde7.execute-api.us-west-2.amazonaws.com/HCMP/registeruser`;
 
 
   registeruser(user : User) : Observable<User>{

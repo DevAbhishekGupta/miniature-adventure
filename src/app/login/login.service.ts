@@ -12,7 +12,9 @@ export class LoginService {
 
   //private LOGIN_USER : string = `http://localhost:8080/auth/api/loginUser`;
 
-  private LOGIN_USER : string = `http://ec2-54-68-150-84.us-west-2.compute.amazonaws.com:5000/auth/api/loginUser`;
+  //private LOGIN_USER : string = `http://ec2-54-68-150-84.us-west-2.compute.amazonaws.com:5000/auth/api/loginUser`;
+
+  private LOGIN_USER : string = `https://umxjd8fde7.execute-api.us-west-2.amazonaws.com/HCMP/loginuser`;
 
   map : Map<string,string> | any;
 

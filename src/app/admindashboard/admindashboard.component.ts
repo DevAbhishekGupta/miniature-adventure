@@ -84,6 +84,8 @@ export class AdmindashboardComponent implements OnInit {
 
     this.searchMember = member;
 
+    //this.claimTypeSelected = "Vision";
+
     this.claim = new Claim();
     console.log("claim member: " + member.memberId);
   }
@@ -123,11 +125,13 @@ export class AdmindashboardComponent implements OnInit {
       console.log("Added Data to the DB");
       alert("Added data to backend DB.");
       this.claims.push(this.data);
+      this.clearClaimForm();
       Object.keys(this.memberClaimForm.controls).forEach(key => {
         this.memberClaimForm.get(key).setErrors(null) ;
       });
     },error => {
       console.log(error);
+      this.clearClaimForm();
       Object.keys(this.memberClaimForm.controls).forEach(key => {
         this.memberClaimForm.get(key).setErrors(null) ;
       });
@@ -136,7 +140,7 @@ export class AdmindashboardComponent implements OnInit {
   }
 
   memberSearch(){
-    debugger;
+    //debugger;
     console.log("memberSearch");
     console.log("this.searchMember.memberId: " + this.searchMember.memberId);
     console.log("this.searchMember.firstName: " + this.searchMember.firstName);
@@ -194,7 +198,7 @@ export class AdmindashboardComponent implements OnInit {
   }
 
   searchByMemberId(){
-    debugger;
+    //debugger;
     this.memberService.searchByMemberId(this.searchMember.memberId).subscribe(data => {
       this.searchMemberTable = true;
       this.noRecordFound = false;
@@ -210,7 +214,7 @@ export class AdmindashboardComponent implements OnInit {
   }
 
   searchByMemberName(){
-    debugger;
+    //debugger;
     console.log("searchByMemberName");
     this.memberService.searchByMemberName(this.searchMember.firstName, this.searchMember.lastName).subscribe(data => {
       this.searchMemberTable = true;
@@ -227,7 +231,7 @@ export class AdmindashboardComponent implements OnInit {
   }
 
   searchByPhysician(){
-    debugger;
+    //debugger;
     this.memberService.searchByPhysician(this.searchPhysician).subscribe(data => {
       this.searchMemberTable = true;
       this.noRecordFound = false;
@@ -243,7 +247,7 @@ export class AdmindashboardComponent implements OnInit {
   }
 
   searchMemberByClaimId(){
-    debugger;
+    //debugger;
     console.log("searchMemberByClaimId: "+this.claimid);
     
     this.memberService.memberDetailsByClaimId(this.claimid).subscribe(data => {
